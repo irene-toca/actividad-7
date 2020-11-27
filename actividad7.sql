@@ -5,6 +5,7 @@ CREATE TABLE departamentos
     id_dpto INTEGER PRIMARY KEY,
     nombre VARCHAR (30),
     presupuesto INTEGER
+    
 );
 
 -- TABLA EMPLEADOS 
@@ -18,14 +19,19 @@ CREATE TABLE empleados
     fecha_nac DATE,
     municipio VARCHAR (50),
     sueldo DECIMAL(5,2),
-    id_dpto INTEGER 
+    id_dpto INTEGER,
+    CONSTRAINT emp_dpto_fk FOREIGN KEY (id_dpto)
+    REFERENCES departamentos (id_dpto) 
+    ON DELETE SET NULL
+
+
 
 );
  
 -- TABLA PROYECTOS
 CREATE TABLE proyectos
 (
-    id_proyectos INTEGER PRIMARY KEY,
+    id_proy INTEGER PRIMARY KEY,
     nombre VARCHAR (50),
     fecha_ini DATE,
     fecha_fin DATE
@@ -35,5 +41,9 @@ CREATE TABLE proyectos
 CREATE TABLE asignacion
 (
     id_emp INTEGER,
-    id_proy INTEGER
+    id_proy INTEGER,
+    CONSTRAINT asig_emp_fk FOREIGN KEY (id_emp)
+    REFERENCES empleados (id_emp),
+    CONSTRAINT asig_proy_fk FOREIGN KEY (id_proy)
+    REFERENCES proyectos (id_proy)
 );
